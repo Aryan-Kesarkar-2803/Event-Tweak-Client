@@ -1,0 +1,9 @@
+export const getVendorProfileEndpoint = "/vendor/profile"
+export const registerVendorEndpoint = '/vendor/register'
+export const loginVendorEndpoint = '/vendor/login'
+export const updateVendorProfileEndpoint = '/vendor/update-profile'
+export const getVendorsEndPoint = '/vendor/get-vendors';
+export const getVendorsByIdsEndpoint = '/vendor/getVendorsByIds'
+export const updateBookingRequestStatusForVendorEndpoint = "/vendor/updateBookingRequestStatus";
+export const getBookingRequestsForVendorEndpoint = '/vendor/getBookingRequests';
+export const updateServiceRequestStatusForVendorEndpoint = "/vendor/updateServiceRequestStatus";

@@ -1,0 +1,10 @@
+export const saveEventDataEndpoint = '/event/saveEvent'
+export const getEventsForVenueEndpoint = "/event/getEventsForVenue";
+export const eventBookingRequestEndPoint = "/event/booking-request";
+export const getAllEventBookingRequestsForClientEndPoint = "/event/getAllEventBookingRequestsForClient";
+export const rejectVendorByClientEndpoint = "/event/rejectVendorByClient";
+export const addVendorsToBookingRequestEndpoint = "/event/addVendorsToBookingRequest"
+export const updateVenueForBookingRequestEndpoint = "/event/updateVenueForBookingRequest";
+export const getAllEventBookingsForClientEndpoint = "/event/getAllEventBookingsForClient";
+export const getEventsForVendorEndpoint = "/event/getEventsForVendor";
+export const cancelEventBookingEndpoint = "/event/cancelEventBooking";

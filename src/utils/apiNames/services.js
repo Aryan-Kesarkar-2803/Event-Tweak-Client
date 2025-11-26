@@ -1,0 +1,9 @@
+export const requestVendorServiceEndpoint = "/service/requestService";
+export const getAllServiceRequestsForClientEndpoint = '/service/getAllServiceRequestsForClient';
+export const updateServiceRequestForClientEndpoint = "/service/updateServiceRequestForClient";
+export const getAllServiceRequestsForVendorEndpoint = '/service/getAllServiceRequestsForVendor';
+export const saveServiceBookingEndpoint = "/service/saveServiceBooking";
+export const deleteServiceRequestEndpoint = "/service/deleteServiceRequest";
+export const getAllServiceBookingsForClientEndpoint = "/service/getAllServiceBookingsForClient"
+export const getAllServiceBookingsForVendorEndpoint = "/service/getServiceBookingsForVendor";
+export const cancelServiceBookingEndpoint = "/service/cancelServiceBooking";
