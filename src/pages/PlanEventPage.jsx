@@ -189,7 +189,7 @@ const PlanEventPage = () => {
   };
 
   const fetchVendors = async () => {
-    setLoading({value:true, text:['...please wait','...fetching data']});
+    setLoading({value:true, text:['...please wait','...fetching Vendors']});
     const res = await getVendors(
       eventData?.address?.state,
       eventData?.address?.city,
@@ -218,7 +218,7 @@ const PlanEventPage = () => {
   };
 
   const fetchVenues = async (state = "", city = "", date = "") => {
-    setLoading({value:true, text:['...please wait','...fetching data']});
+    setLoading({value:true, text:['...please wait','...fetching venues']});
     const res = await getVenues({ city: city, state: state, date: date });
     setFetchedVenues(res?.data || []);
     setLoading({value:false, text:[]});
@@ -342,6 +342,7 @@ const PlanEventPage = () => {
     }
   }, []);
 
+
   return (
     <>
     {
@@ -459,9 +460,6 @@ const PlanEventPage = () => {
           )}
 
           {activeStep === 1 && // for venue
-            (loading ? (
-              <Loader texts={["Fetching Venues...", "Please wait..."]} />
-            ) : (
               <motion.div
                 key="step2"
                 initial={{ opacity: 0, x: 50 }}
@@ -672,11 +670,8 @@ const PlanEventPage = () => {
                   </motion.div>
                 )}{" "}
               </motion.div>
-            ))}
+          }
           {activeStep === 2 &&
-            (loading ? (
-              <Loader texts={["Fetching Vendors...", "Please wait..."]} />
-            ) : (
               <motion.div
                 key="step3"
                 initial={{ opacity: 0, x: 50 }}
@@ -844,7 +839,7 @@ const PlanEventPage = () => {
                   </Box>
                 </Box>
               </motion.div>
-            ))}
+            }
         </AnimatePresence>
 
         {/* Buttons */}

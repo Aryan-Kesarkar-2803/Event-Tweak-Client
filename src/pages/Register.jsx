@@ -5,6 +5,7 @@ import { alertNotification, errorNotification, successNotification } from "../ut
 import { registerUser } from "../utils/repository/user";
 import { registerVendor } from "../utils/repository/vendor";
 import { registerVenue } from "../utils/repository/venue";
+import Loader from "../components/globalComponents/Loader";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const Register = () => {
   const [emailForUser, setEmailForUser] = useState("");
   const [emailForVendor, setEmailForVendor] = useState("");
   const [emailForVenue, setEmailForVenue] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // Email validation
   const isValidEmail = (email) => {
@@ -43,12 +45,14 @@ const Register = () => {
       alertNotification({message:'Please enter strong password'});
       return;
     }
+    setLoading(true);
 
     const response = await registerUser({
       email: emailForUser.trim(),
       password: passwordForUser.trim()
     })
     if(response == false){
+      setLoading(false)
       return;
     }
     if(response.status == 201){
@@ -57,6 +61,7 @@ const Register = () => {
     }else{
       errorNotification({message:response?.message})
     }
+    setLoading(false)
   };
 
   const handleRegisterVendor = async(e) => {
@@ -71,13 +76,14 @@ const Register = () => {
       alertNotification({message:'Please enter strong password'});
       return;
     }
-
+    setLoading(true);
     const response = await registerVendor({
       email: emailForVendor.trim(),
       password: passwordForVendor.trim()
     })
 
     if(response == false){
+      setLoading(false)
       return;
     }
 
@@ -87,9 +93,10 @@ const Register = () => {
     }else{
       errorNotification({message:response?.message})
     }
-    
+    setLoading(false)
   }
   const handleRegisterVenue = async(e) => {
+    
     e.preventDefault();
 
     if (!isValidEmail(emailForVenue)) {
@@ -101,13 +108,14 @@ const Register = () => {
       alertNotification({message:'Please enter strong password'});
       return;
     }
-
+    setLoading(true);
     const response = await registerVenue({
       email: emailForVenue.trim(),
       password: passwordForVenue.trim()
     })
 
     if(response == false){
+      setLoading(false)
       return;
     }
 
@@ -117,7 +125,7 @@ const Register = () => {
     }else{
       errorNotification({message:response?.message})
     }
-    
+    setLoading(false)
   }
 
   const handleChangeEmailForUser = (e) =>{
@@ -140,6 +148,10 @@ const Register = () => {
   }
 
   return (
+    <>
+    {
+      loading ?
+      <Loader texts={["...processing","...this may take some time"]}/>:
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-yellow-50 to-yellow-100 px-4">
       <div className="bg-white shadow-lg rounded-2xl w-full max-w-md p-8">
         {/* Toggle Buttons */}
@@ -439,6 +451,8 @@ const Register = () => {
         </p>
       </div>
     </div>
+    }
+    </>
   );
 };
 

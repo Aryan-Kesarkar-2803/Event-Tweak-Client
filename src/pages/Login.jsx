@@ -26,6 +26,7 @@ const Login = () => {
   const[user, setUser] = useAtom(userAtom)
   const[authUser, setAuthUser] = useAtom(authUserAtom)
 
+
   const handleLoginUser = async(e) => {
     setLoadingForButton(true);
     e.preventDefault();
