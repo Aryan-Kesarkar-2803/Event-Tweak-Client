@@ -1032,7 +1032,7 @@ const UserBookingRequestsPage = () => {
                         handleSetSelectedEvent(event);
                       }}
                     >
-                      {loading ? (
+                      {loading?.value ? (
                         <CircularProgress size={26} color="white" />
                       ) : (
                         "View More Details"
