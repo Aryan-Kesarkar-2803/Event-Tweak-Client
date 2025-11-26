@@ -30,13 +30,12 @@ import { errorNotification, successNotification } from "../utils/toast";
 import { BusinessServices } from "../utils/constants/vendorConstants";
 import { getVendors } from "../utils/repository/vendor";
 import { MdTune } from "react-icons/md";
-// import ImagePopup from "../components/globalComponents/ImagePopup";
 import Loader from "../components/globalComponents/Loader";
 import { FaEye } from "react-icons/fa";
 import SelectedVendorsPopup from "../components/globalComponents/SelectedVendorsPopup";
 import { saveEventBookingRequest } from "../utils/repository/event";
 import { useNavigate } from "react-router-dom";
-import ImagePopup from "../components/globalComponents/ImagePopUp";
+import ImagePopup from "../components/globalComponents/ImagePopup";
 
 const steps = ["Details", "Venue", "Services"];
 
