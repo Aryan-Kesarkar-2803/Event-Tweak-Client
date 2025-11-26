@@ -26,8 +26,8 @@ import { authUserAtom } from "../store/other";
 import { requestVendorService } from "../utils/repository/services";
 import { successNotification } from "../utils/toast";
 import { useNavigate } from "react-router-dom";
-import ImagePopup from "../components/globalComponents/ImagePopUp";
 import Loader from "../components/globalComponents/Loader";
+import ImagePopup from "../components/globalComponents/ImagePopUp";
 
 const Services = () => {
   const navigate = useNavigate()
