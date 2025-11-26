@@ -9,7 +9,7 @@ import Loader from "../../components/globalComponents/Loader";
 import { CircularProgress } from "@mui/material";
 import SelectBox from "../../components/globalComponents/SelectBox";
 import { statesAndCities } from "../../utils/constants/LocationData";
-import ImagePopup from "../../components/globalComponents/ImagePopUp";
+import ImagePopup from "../../components/globalComponents/ImagePopup";
 import { authUserAtom } from "../../store/other";
 
 const UserProfileForm = () => {

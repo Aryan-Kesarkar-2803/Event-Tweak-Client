@@ -14,7 +14,7 @@ import ImageUpload from "../../components/globalComponents/MultiImageUpload";
 import { getVendorProfile, updateVendorProfile } from "../../utils/repository/vendor";
 import { deleteImagesFromCloud } from "../../utils/repository/other";
 import { statesAndCities } from "../../utils/constants/LocationData";
-import ImagePopup from "../../components/globalComponents/ImagePopUp";
+import ImagePopup from "../../components/globalComponents/ImagePopup";
 import { authUserAtom } from "../../store/other";
 import { getVenueProfile, updateVenueProfile } from "../../utils/repository/venue";
 
