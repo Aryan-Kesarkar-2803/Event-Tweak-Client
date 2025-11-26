@@ -43,7 +43,10 @@ const steps = ["Details", "Venue", "Services"];
 const PlanEventPage = () => {
   const navigate = useNavigate();
   const [user, setUser] = useAtom(authUserAtom);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState({
+    value:false,
+    text:[]
+  });
   const [activeStep, setActiveStep] = useState(0);
   const [selectedService, setSelectedService] = useState("");
   const [fetchedVenues, setFetchedVenues] = useState([]);
@@ -186,7 +189,7 @@ const PlanEventPage = () => {
   };
 
   const fetchVendors = async () => {
-    setLoading(true);
+    setLoading({value:true, text:['...please wait','...fetching data']});
     const res = await getVendors(
       eventData?.address?.state,
       eventData?.address?.city,
@@ -200,7 +203,7 @@ const PlanEventPage = () => {
         setUniqueAreas(areas);
       }
     }
-    setLoading(false);
+    setLoading({value:false, text:[]});
   };
   const handleChangeFilterArea = (e) => {
     setFilter((prev) => ({
@@ -215,13 +218,14 @@ const PlanEventPage = () => {
   };
 
   const fetchVenues = async (state = "", city = "", date = "") => {
-    setLoading(true);
+    setLoading({value:true, text:['...please wait','...fetching data']});
     const res = await getVenues({ city: city, state: state, date: date });
     setFetchedVenues(res?.data || []);
-    setLoading(false);
+    setLoading({value:false, text:[]});
   };
 
   const handleCreateEvent = async () => {
+    setLoading({value:true, text:['...please wait','...fetching data','...processing','...this may take some time']});
     const res1 = await getUserProfile();
     let userProfile;
     if (res1) {
@@ -278,13 +282,16 @@ const PlanEventPage = () => {
       successNotification({ message: "Event Booking Successfull" });
       navigate("/booking-requests");
     }
+
+    setLoading({value:false, text:[]});
   };
 
   useEffect(() => {
     const fetchUserAddress = async () => {
-      setLoading(true);
+      setLoading({value:true, text:['...please wait','...fetching data']});
       const res = await getUserAddress();
       if (res == false) {
+        setLoading({value:false, text:[]});
         return;
       }
 
@@ -301,7 +308,7 @@ const PlanEventPage = () => {
         },
       }));
 
-      setLoading(false);
+      setLoading({value:false, text:[]});
     };
     if (activeStep === 1) {
       fetchUserAddress();
@@ -336,6 +343,10 @@ const PlanEventPage = () => {
   }, []);
 
   return (
+    <>
+    {
+      loading?.value ?
+      <Loader texts={[...loading?.text]}/>:
     <Box className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex flex-col items-center p-4 sm:p-10 mb-10">
       <motion.div
         initial={{ opacity: 0, y: -40 }}
@@ -1120,6 +1131,8 @@ const PlanEventPage = () => {
         setSelectedVendors={setSelectedVendors}
       />
     </Box>
+    }
+    </>
   );
 };
 

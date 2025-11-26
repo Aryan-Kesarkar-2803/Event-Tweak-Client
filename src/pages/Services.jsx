@@ -27,13 +27,17 @@ import { requestVendorService } from "../utils/repository/services";
 import { successNotification } from "../utils/toast";
 import { useNavigate } from "react-router-dom";
 import ImagePopup from "../components/globalComponents/ImagePopUp";
+import Loader from "../components/globalComponents/Loader";
 
 const Services = () => {
   const navigate = useNavigate()
   const [user, setUser] = useAtom(authUserAtom);
   const [selectedService, setSelectedService] = useState("");
   const [startIndex, setStartIndex] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState({
+    value:false,
+    text:[],
+  });
   const [vendors, setVendors] = useState([]);
   const [uniqueAreas, setUniqueAreas] = useState([]);
   const [openDialogForFilter, setOpenDialogForFilter] = useState(false);
@@ -53,7 +57,7 @@ const Services = () => {
   });
 
   const fetchVendors = async () => {
-    setLoading(true);
+    setLoading({value:true, text:['...fetching vendors','...please wait']});
     const res = await getVendors(
       userData?.address?.state || "",
       userData?.address?.city || "",
@@ -67,7 +71,7 @@ const Services = () => {
         setUniqueAreas(areas);
       }
     }
-    setLoading(false);
+    setLoading({value:false, text:[]});
   };
 
   const handleSelectVendor = (_vendor = null) => {
@@ -141,6 +145,10 @@ const Services = () => {
   }, []);
 
   return (
+    <>
+    {
+      loading?.value ?
+      <Loader texts={[...loading?.text]}/>:
     <>
       <Box
         sx={{
@@ -692,6 +700,8 @@ const Services = () => {
         src={selectedImageSrc || null}
         alt="Image"
       />
+      </>
+    }
     </>
   );
 };

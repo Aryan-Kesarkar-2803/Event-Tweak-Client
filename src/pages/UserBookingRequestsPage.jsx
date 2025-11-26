@@ -52,7 +52,10 @@ const UserBookingRequestsPage = () => {
   const [fetchedVendors, setFetchedVendors] = useState([]);
   const [fetchedVenue, setFetchedVenue] = useState({});
   const [selectedVendor, setSelectedVendor] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState({
+    value:false,
+    text:[],
+  });
   const [viewMore, setViewMore] = useState(null);
   const [selectedService, setSelectedService] = useState("");
   const [openDialogForFilter, setOpenDialogForFilter] = useState(false);
@@ -89,10 +92,11 @@ const UserBookingRequestsPage = () => {
     useState(false);
 
   const fetchClientEventBookings = async () => {
+    setLoading({value:true, text:['...please wait','...fetching data']});
     const res = await getAllEventBookingRequestsForClient(
       user?.userDetails?.id || ""
     );
-
+    setLoading({value:false, text:[]});
     if (res) {
       let temp = res?.data || [];
       // let temp = (res?.data ?? []).map((req) => ({
@@ -104,11 +108,12 @@ const UserBookingRequestsPage = () => {
       setData(temp || []);
       return temp;
     }
+
   };
 
   const handleSetSelectedEvent = async (event = {}) => {
     
-    setLoading(true);
+    setLoading({value:true, text:['...please wait','...fetching data']});
     // return;
 
     const vendorIds = (event?.selectedServices ?? []).map(
@@ -131,10 +136,11 @@ const UserBookingRequestsPage = () => {
     }
     setSelectedEvent(event || {});
 
-    setLoading(false);
+    setLoading({value:false, text:[]});
   };
 
   const handleRejectVendor = async () => {
+    setLoading({value:true, text:['...please wait','...processing']});
     const res = await rejectVendorByClient(
       confirmRejectVendor?.vendorId,
       confirmRejectVendor?.requestId
@@ -154,6 +160,7 @@ const UserBookingRequestsPage = () => {
       requestId: "",
       vendorId: "",
     });
+    setLoading({value:false, text:[]});
   };
 
   const handleSelectVendor = (_vendor = null) => {
@@ -200,6 +207,7 @@ const UserBookingRequestsPage = () => {
   };
 
   const fetchVendors = async () => {
+    setLoading({value:true, text:['...please wait','...fetching data']});
     const res1 = await getUserProfile();
     const res = await getVendors(
       res1?.data?.address?.state,
@@ -218,7 +226,7 @@ const UserBookingRequestsPage = () => {
         setUniqueAreas(areas);
       }
     }
-    // setLoading(false);
+    setLoading({value:false, text:[]});
   };
   const handleChangeFilterArea = (e) => {
     setFilter((prev) => ({
@@ -232,6 +240,7 @@ const UserBookingRequestsPage = () => {
     });
   };
   const addVendorsToExistingList = async () => {
+    setLoading({value:true, text:['...please wait','...processing']});
     const vendorsList = selectedVendors.map((vendor) => ({
       id: vendor?.id,
       amount: "0",
@@ -263,6 +272,7 @@ const UserBookingRequestsPage = () => {
       setSelectedEvent(currentEvent ?? {});
       handleExitAddVendorPage();
     }
+    setLoading({value:false, text:[]});
   };
 
   const handleExitAddVendorPage = () => {
@@ -292,6 +302,7 @@ const UserBookingRequestsPage = () => {
   };
 
   const handleConfirmEvent = async () => {
+    setLoading({value:true, text:['...please wait','...processing','...this may take some time']});
 
     let eventBooking = {
       clientId: user?.userDetails?.id || '',
@@ -325,16 +336,18 @@ const UserBookingRequestsPage = () => {
       await fetchClientEventBookings();
       setSelectedEvent(null);
     }
+    setLoading({value:false, text:[]});
   };
 
   const fetchVenues = async (state = "", city = "", date = "") => {
-    // setLoading(true);
+    setLoading({value:true, text:['...please wait','...fetching data']});
     const res = await getVenues({ city: city, state: state, date: date });
     setFetchedVenues(res?.data || []);
-    // setLoading(false);
+    setLoading({value:false, text:[]});
   };
   
   const addVenueToExistingEvent = async() => {
+    setLoading({value:true, text:['...please wait','...processing','...this may take some time']});
 
       const dataToSend = {
         ...eventData,
@@ -355,7 +368,7 @@ const UserBookingRequestsPage = () => {
         );
         setSelectedEvent(currentEvent ?? {});
       }
-
+      setLoading({value:false, text:[]});
   }
 
   useEffect(() => {
@@ -393,6 +406,11 @@ const UserBookingRequestsPage = () => {
 
 
   return (
+    <>
+    {
+      loading?.value ?
+      <Loader texts={[...loading?.text]}/>
+      :
     <>
       {addVendor ? (
         <Box
@@ -1562,6 +1580,8 @@ const UserBookingRequestsPage = () => {
           </Dialog>
         </div>
       )}
+    </>
+  }
     </>
   );
 };
