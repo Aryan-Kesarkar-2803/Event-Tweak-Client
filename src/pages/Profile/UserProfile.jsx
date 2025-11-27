@@ -91,10 +91,6 @@ const UserProfileForm = () => {
     // successNotification({message:'Image uploaded successfully'});
   };
 
-  // useEffect(()=>{
-  //   console.log('userProfile - ',userProfile);
-  // },[userProfile])
-
   const clearImage = () => {
 
     if(userProfile?.file !== null){
@@ -128,7 +124,6 @@ const UserProfileForm = () => {
   }
 }
 const handleChangeImageData = (e) =>{
-  console.log('eeeeee - ',e);
   const file = e.target.files[0];
   if(file?.size > 1 * 1024 * 1024){
     errorNotification({message: 'file size must be less than 1 mb'});
@@ -141,7 +136,6 @@ const handleChangeImageData = (e) =>{
 }
 const handleChangeGender = (e) =>{
   const value = e.target.value;
-  console.log(value)
   setUserProfile(prev => ({
     ...prev,
     gender:value
@@ -167,10 +161,6 @@ const handleChangeUserCity = (e) =>{
     }
   }))
 }
-
-useEffect(()=>{
-  console.log(userProfile)
-},[userProfile])
 
   const handleSubmit = async(e) => {
     setLoadingForSave(true)
