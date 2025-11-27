@@ -297,7 +297,7 @@ const VenueProfile = () => {
       ...prev,
       userDetails:{
         ...prev?.userDetails,
-        name: data?.fullName || '',
+        name: data?.coordinatorName || '',
       }
     }))
 
