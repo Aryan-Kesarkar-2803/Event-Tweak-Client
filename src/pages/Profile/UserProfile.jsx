@@ -128,6 +128,7 @@ const UserProfileForm = () => {
   }
 }
 const handleChangeImageData = (e) =>{
+  console.log('eeeeee - ',e);
   const file = e.target.files[0];
   if(file?.size > 1 * 1024 * 1024){
     errorNotification({message: 'file size must be less than 1 mb'});

@@ -6,6 +6,7 @@ import { registerUser } from "../utils/repository/user";
 import { registerVendor } from "../utils/repository/vendor";
 import { registerVenue } from "../utils/repository/venue";
 import Loader from "../components/globalComponents/Loader";
+import { s } from "framer-motion/client";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -57,6 +58,8 @@ const Register = () => {
     }
     if(response.status == 201){
        successNotification({message:response?.message});
+       setEmailForUser('');
+       setPasswordForUser('');
        navigate("/login")
     }else{
       errorNotification({message:response?.message})
@@ -88,6 +91,8 @@ const Register = () => {
     }
 
     if(response.status == 201){
+       setEmailForVendor('');
+       setPasswordForVendor('')
        successNotification({message:response?.message});
        navigate("/login")
     }else{
@@ -120,6 +125,8 @@ const Register = () => {
     }
 
     if(response.status == 201){
+       setEmailForVenue('');
+       setPasswordForVenue('');
        successNotification({message:response?.message});
        navigate("/login")
     }else{

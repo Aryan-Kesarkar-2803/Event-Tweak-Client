@@ -76,6 +76,8 @@ const Login = () => {
         navigate('/profile')
         return;
       }
+      setEmailForUser("");
+      setPasswordForUser('');
       successNotification({message:response?.message});
       setLoadingForButton(false)
       navigate('/')
@@ -132,6 +134,8 @@ const Login = () => {
         navigate('/profile')
         return;
       }
+      setEmailForVendor('');
+      setPasswordForVendor('');
       successNotification({message:response?.message});
       setLoadingForButton(false)
       navigate("/")
@@ -188,7 +192,8 @@ const Login = () => {
         navigate('/profile')
         return;
       }
-
+      setEmailForVenue("");
+      setPasswordForVenue("");
       successNotification({message:response?.message});
       setLoadingForButton(false)
       navigate("/")
