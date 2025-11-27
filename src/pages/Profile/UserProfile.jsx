@@ -223,10 +223,14 @@ useEffect(()=>{
     }))
     // setting name in authUser too
 
-    setAuthUser(prev => ({
-        ...prev,
-        name:data?.fullName
-      }))
+     setAuthUser(prev => ({
+    ...prev,
+    userDetails:{
+      ...prev?.userDetails,
+      name: data?.fullName || '',
+    }
+  }))
+
     successNotification({message: res?.message || ''})
     setLoadingForSave(false)
   };

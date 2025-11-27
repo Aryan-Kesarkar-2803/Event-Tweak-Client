@@ -292,6 +292,16 @@ const VenueProfile = () => {
       file: null,
       sampleWorkFiles:[]
     }));
+
+    setAuthUser(prev => ({
+      ...prev,
+      userDetails:{
+        ...prev?.userDetails,
+        name: data?.fullName || '',
+      }
+    }))
+
+
     setResetFiles(true)
 
     setTimeout(()=>{              // this helps to selet the images again
