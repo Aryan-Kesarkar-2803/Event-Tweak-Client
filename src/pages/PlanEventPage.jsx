@@ -389,6 +389,7 @@ const PlanEventPage = () => {
                   Event Name
                 </label>
                 <TextField
+                  autoComplete="off"
                   name="name"
                   value={eventData.name}
                   onChange={handleChange}
@@ -447,6 +448,7 @@ const PlanEventPage = () => {
                 <TextField
                   name="guests"
                   type="text"
+                  autoComplete="off"
                   value={eventData.noOfGuests}
                   onChange={(e) => {
                     let value = e.target.value.replace(/\D/g, ""); // allow only digits
