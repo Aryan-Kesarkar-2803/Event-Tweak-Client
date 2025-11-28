@@ -324,6 +324,7 @@ const PlanEventPage = () => {
       // call for vendors -> selectedService, state, city
       fetchVendors();
       setStartIndex(0);
+      setFilter({area:''})
     }
   }, [selectedService]);
 
