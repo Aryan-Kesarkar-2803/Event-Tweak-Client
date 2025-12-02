@@ -19,7 +19,7 @@ const HomePage = () => {
           </p>
         </div>
         <img
-          src="https://images.unsplash.com/photo-1556912172-45b7abe8b7e1"
+          src="https://plus.unsplash.com/premium_photo-1664474653221-8412b8dfca3e?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Event Celebration"
           className="rounded-xl mt-8 md:mt-0 w-full md:w-1/2 shadow-lg object-cover"
         />
