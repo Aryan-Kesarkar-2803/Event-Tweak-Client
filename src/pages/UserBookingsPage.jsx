@@ -41,7 +41,7 @@ const UserBookingsPage = () => {
   const [fetchedVendorForService, setFetchedVendorForService] = useState(null);
   const [fetchedVenue, setFetchedVenue] = useState({});
   const [selectedVendor, setSelectedVendor] = useState(null);
-  const [loadingForButton, setLoadingForButton] = useState(false);
+  const [loadingForButtonIndex, setLoadingForButtonIndex] = useState(null);
   const [loading, setLoading] = useState({
     value:false,
     labels :[],
@@ -75,7 +75,6 @@ const UserBookingsPage = () => {
   };
 
   const handleSetSelectedEvent = async (event = {}) => {
-    setLoadingForButton(true);
     const vendorIds = [...event?.services]?.map((srv) => srv?.id);
 
     const res = await getVendorsByIds({
@@ -94,11 +93,11 @@ const UserBookingsPage = () => {
     }
     setSelectedEvent(event || {});
 
-    setLoadingForButton(false);
+    setLoadingForButtonIndex(null);
   };
 
   const handleSetSelectedService = async (service = {}) => {
-    setLoadingForButton(true);
+   
     const vendorIds = [service?.vendor?.id];
 
     const res = await getVendorsByIds({
@@ -110,7 +109,7 @@ const UserBookingsPage = () => {
       setFetchedVendorForService(res?.data?.[0] || {});
     }
 
-    setLoadingForButton(false);
+    setLoadingForButtonIndex(null);
   };
   const handleCancelEventBooking = async() =>{
     setLoading(prev => ({...prev,value:true,labels:["...Processing","...Please wait"]}));
@@ -208,7 +207,7 @@ const UserBookingsPage = () => {
               </p>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-8">
-                {(data ?? []).map((event) => (
+                {(data ?? []).map((event, index) => (
                   <Card
                     key={event?.id}
                     className="rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200"
@@ -287,10 +286,11 @@ const UserBookingsPage = () => {
                         onClick={(e) => {
                           e.stopPropagation();
                           // setSelectedEvent(event);
+                          setLoadingForButtonIndex(index)
                           handleSetSelectedEvent(event);
                         }}
                       >
-                        {loadingForButton ? (
+                        {loadingForButtonIndex == index ? (
                           <CircularProgress size={26} color="white" />
                         ) : (
                           "View More Details"
@@ -706,7 +706,7 @@ const UserBookingsPage = () => {
               </p>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-8">
-                {(data1 ?? []).map((event) => (
+                {(data1 ?? []).map((event, index) => (
                   <Card
                     key={event?.id}
                     className="rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200"
@@ -774,10 +774,12 @@ const UserBookingsPage = () => {
                         }}
                         onClick={(e) => {
                           e.stopPropagation();
+                          setLoadingForButtonIndex(index)
                           handleSetSelectedService(event);
+
                         }}
                       >
-                        {loadingForButton ? (
+                        {loadingForButtonIndex == index ? (
                           <CircularProgress size={26} color="white" />
                         ) : (
                           "View More Details"
